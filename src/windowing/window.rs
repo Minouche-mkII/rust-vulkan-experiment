@@ -1,4 +1,6 @@
+use super::window_manager;
 
-pub fn new_window() {
+pub struct Window {
     
 }
+
