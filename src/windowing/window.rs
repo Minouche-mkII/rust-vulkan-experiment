@@ -1,19 +1,21 @@
-//! Created windows are centralized within Window Manager, when a window is destructed
-//! implementations cannot be used anymore as the windows as been freed
+//! Created windows are centralized within application, when a window is destructed
+//! implementations cannot be used anymore after the windows has been killed
 
-use std::sync::Weak;
-
-use super::{managed_window::ManagedWindow, window_manager};
+use super::application;
 
 pub struct Window {
-    managed_window: Weak<ManagedWindow>,
+    managed_window_id: i32 
 }
 
+// TODO Handle 
 impl Window {
     pub fn new(width: u32, height: u32, title: &str, fullscreen: bool) -> Self {
-        let managed_window = window_manager::create_new_window(width, height, title, fullscreen);
+        let managed_window_id = application::create_new_window(width, height, title, fullscreen);
         Self {
-            managed_window
+            managed_window_id
         }
+    }
+    pub fn kill(self: Self) {
+        application::destroy_window(self.managed_window_id);
     }
 }
